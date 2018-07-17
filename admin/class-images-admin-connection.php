@@ -82,7 +82,7 @@ class Images_Admin_Connection {
 		// Store user
 		$user = $connection->getUser();
 
-		if ( $user->error_message ) return false;
+		if ( isset( $user->error_message ) ) return false;
 
 		$count = $user->data->counts->media;
 		$content = array();

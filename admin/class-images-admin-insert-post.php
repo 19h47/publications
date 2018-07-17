@@ -73,9 +73,7 @@ class Images_Admin_Insert_Post {
 	 */
 	function insert_post() {
 
-		if ( empty( $this->images ) ) return false;
-
-		var_dump( $images );
+		if ( ! isset( $this->images->data ) ) return false;
 
 		foreach ( $this->images->data as $data ) {
 
