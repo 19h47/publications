@@ -1,0 +1,11 @@
+{
+	"consumer": {
+		"key": "YOUR_CONSUMER_KEY",
+		"secret": "YOUR_CONSUMER_SECRET"
+	},
+	"access": {
+		"token": "YOUR_ACCESS_TOKEN",
+		"token_secret": "YOUR_TOKEN_SECRET"
+	},
+	"screen_name": "USER"
+}
