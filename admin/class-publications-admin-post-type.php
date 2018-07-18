@@ -109,7 +109,7 @@ class Publications_Admin_Post_Type {
 			'show_in_menu'			=> true,
 			'show_in_admin_bar'		=> true,
 			'show_in_rest'			=> true,
-			'rest_base'             => 'publication',
+			'rest_base'             => 'publications',
 			'menu_position'			=> 5,
 			'menu_icon'				=> 'dashicons-format-image',
 			'can_export'			=> true,
@@ -260,7 +260,7 @@ class Publications_Admin_Post_Type {
 	function register_rest_route() {
 		register_rest_route( 
 			'wp/v2', 
-			'/image/', 
+			'/publications/', 
 			array(
 				'methods'   => 'GET'
 			) 

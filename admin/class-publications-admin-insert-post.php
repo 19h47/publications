@@ -40,13 +40,7 @@ class Publications_Admin_Insert_Post {
 	private $version;
 
 
-	/**
-	 * Images
-	 *
-	 * @since	1.0.0
-	 * @access	private
-	 */
-	private $publications;
+	private $config;
 
 
 	/**
@@ -56,26 +50,28 @@ class Publications_Admin_Insert_Post {
 	 * @param	string			$plugin_name		The name of this plugin.
 	 * @param	string			$version			The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version, $publications ) {
-
+	public function __construct( $plugin_name, $version, $config ) {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		$this->publications = $publications;
+		$this->config = $config;
 
-		add_action( 'admin_init', array( $this, 'insert_post' ) );
+		// add_action( 'admin_init', array( $this, 'insert_post' ) );
 	}
 
 
 	/**
 	 * Insert post
 	 *
-	 * @param $publications
 	 */
 	function insert_post() {
 
-		if ( ! isset( $this->publications->data ) ) return false;
+		$publications = do_action( 'instagram_connection', $this->config );
+		var_dump( $publications );
 
-		foreach ( $this->publications->data as $data ) {
+		
+		if ( ! isset( $publications ) || empty( $publications ) ) return false;
+
+		foreach ( $publications as $data->data ) {
 
 			$post_exist = get_posts(
 				array(
@@ -87,8 +83,6 @@ class Publications_Admin_Insert_Post {
 			);
 
 			if ( $post_exist ) continue; // Do Nothing
-
-			// return false;
 
 			$text = $this->text( $data->caption->text );
 			$text = $this->follow( $text );
@@ -117,7 +111,7 @@ class Publications_Admin_Insert_Post {
 				'post_modified'		=> $date,
 				'post_modified_gmt'	=> $date,
 				'post_title'		=> $post_title,
-				'post_type'			=> 'image',
+				'post_type'			=> 'publication',
 			);
 			$post_id = wp_insert_post( $postarr, true );
 
