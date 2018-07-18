@@ -6,7 +6,7 @@ A __WordPress__ plugin to turn your Instagram's post into WordPress posts.
 
 ## Description
 
-__Images__ allow you to turn your Instagram's post into a custom post type Image.
+__Publications__ allow you to turn your Instagram's post into a custom post type Image.
 
 ## Installation
 
@@ -24,7 +24,7 @@ Locate the `config-sample.json`, fill it with your personal informations and the
 
 ### Plugin
 
-- Upload the folder `images` to the `/wp-content/plugins/` directory
+- Upload the folder `publications` to the `/wp-content/plugins/` directory
 - Activate the plugin through the __Plugins__ menu in WordPress
 
 ## References

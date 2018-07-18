@@ -1,4 +1,4 @@
-=== Images ===
+=== Publications ===
 Contributors: Jérémy Levron
 Donate link: http://19h47.fr
 Tags: Instagram, API
