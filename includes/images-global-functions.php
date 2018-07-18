@@ -6,8 +6,8 @@
  * @link		http://19h47.fr
  * @since		1.0.0
  *
- * @package		Images
- * @subpackage	Images/includes
+ * @package		Publications
+ * @subpackage	Publications/includes
  */
 
 if ( ! function_exists( 'insert_attachment_from_url' ) ) :

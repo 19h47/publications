@@ -6,8 +6,8 @@
  * @link		http://19h47.fr
  * @since		1.0.0
  *
- * @package		Images
- * @subpackage	Images/includes
+ * @package		Publications
+ * @subpackage	Publications/includes
  */
 
 
@@ -17,11 +17,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since		1.0.0
- * @package		Images
- * @subpackage	Images/includes
+ * @package		Publications
+ * @subpackage	Publications/includes
  * @author		Jérémy Levron <jeremylevron@19h47.fr>
  */
-class Images_Deactivator {
+class Publications_Deactivator {
 
 	/**
 	 * Short Description. (use period)

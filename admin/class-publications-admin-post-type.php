@@ -6,19 +6,19 @@
  * @link		http://19h47.fr
  * @since		1.0.0
  *
- * @package		Images
- * @subpackage	Images/admin
+ * @package		Publications
+ * @subpackage	Publications/admin
  */
 
 
 /**
  * The post type of the plugin.
  *
- * @package		Images
- * @subpackage	Images/admin
+ * @package		Publications
+ * @subpackage	Publications/admin
  * @author		Jérémy Levron <jeremylevron@19h47.fr>
  */
-class Images_Admin_Post_Type {
+class Publications_Admin_Post_Type {
 
 	/**
 	 * The ID of this plugin.
@@ -48,7 +48,6 @@ class Images_Admin_Post_Type {
 	 * @param		string			$version			The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
-
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 	}
@@ -63,43 +62,43 @@ class Images_Admin_Post_Type {
 	 */
 	public static function register_post_type() {
 		$labels = array(
-			'name'					=> _x( 'Images', 'Image pluriel', $this->plugin_name ),
-			'singular_name'			=> _x( 'Image', 'Image singulier', $this->plugin_name ),
-			'menu_name'				=> __( 'Images', $this->plugin_name ),
-			'name_admin_bar'		=> __( 'Image', $this->plugin_name ),
+			'name'					=> _x( 'Publications', 'Publication pluriel', $this->plugin_name ),
+			'singular_name'			=> _x( 'Publication', 'Oublication singulier', $this->plugin_name ),
+			'menu_name'				=> __( 'Publications', $this->plugin_name ),
+			'name_admin_bar'		=> __( 'Publication', $this->plugin_name ),
 			'parent_item_colon'		=> __( '', $this->plugin_name ),
-			'all_items'				=> __( 'Toutes les images', $this->plugin_name ),
-			'add_new_item'			=> __( 'Ajouter une image', $this->plugin_name ),
+			'all_items'				=> __( 'Toutes les publications', $this->plugin_name ),
+			'add_new_item'			=> __( 'Ajouter une publication', $this->plugin_name ),
 			'add_new'				=> __( 'Ajouter', $this->plugin_name ),
-			'new_item'				=> __( 'Nouvelle image', $this->plugin_name ),
-			'edit_item'				=> __( 'Modifier l\'image', $this->plugin_name ),
-			'update_item'			=> __( 'Mettre à jour l\'image', $this->plugin_name ),
-			'view_item'				=> __( 'Voir l\'image', $this->plugin_name ),
-			'view_items'			=> __( 'Voir les images', $this->plugin_name ),
-			'search_items'			=> __( 'Chercher parmi les images', $this->plugin_name ),
-			'not_found'				=> __( 'Aucune image trouvée.', $this->plugin_name ),
-			'not_found_in_trash'		=> __( 'Aucune image trouvée dans la corbeille.', $this->plugin_name ),
-			'featured_image'		=> __( 'Image à la une', $this->plugin_name ),
-			'set_featured_image'		=> __( 'Mettre une image à la une', $this->plugin_name ),
+			'new_item'				=> __( 'Nouvelle publication', $this->plugin_name ),
+			'edit_item'				=> __( 'Modifier l\'publication', $this->plugin_name ),
+			'update_item'			=> __( 'Mettre à jour l\'publication', $this->plugin_name ),
+			'view_item'				=> __( 'Voir l\'publication', $this->plugin_name ),
+			'view_items'			=> __( 'Voir les publications', $this->plugin_name ),
+			'search_items'			=> __( 'Chercher parmi les publications', $this->plugin_name ),
+			'not_found'				=> __( 'Aucune publication trouvée.', $this->plugin_name ),
+			'not_found_in_trash'	=> __( 'Aucune publication trouvée dans la corbeille.', $this->plugin_name ),
+			'featured_image'		=> __( 'Publication à la une', $this->plugin_name ),
+			'set_featured_image'	=> __( 'Mettre une image à la une', $this->plugin_name ),
 			'remove_featured_image' => __( 'Retirer l\'image mise à la une', $this->plugin_name ),
-			'use_featured_image'		=> __( 'Mettre une image à la une', $this->plugin_name ),
-			'insert_into_item'		=> __( 'Insérer dans l\'image', $this->plugin_name ),
-			'uploaded_to_this_item' => __( 'Ajouter à cette image', $this->plugin_name ),
-			'items_list'			=> __( 'Liste des images', $this->plugin_name ),
-			'items_list_navigation'	=> __( 'Navigation de liste des images', $this->plugin_name ),
-			'filter_items_list'		=> __( 'Filtrer la liste des images', $this->plugin_name ),
+			'use_featured_image'	=> __( 'Mettre une image à la une', $this->plugin_name ),
+			'insert_into_item'		=> __( 'Insérer dans l\'publication', $this->plugin_name ),
+			'uploaded_to_this_item' => __( 'Ajouter à cette publication', $this->plugin_name ),
+			'items_list'			=> __( 'Liste des publications', $this->plugin_name ),
+			'items_list_navigation'	=> __( 'Navigation de liste des publications', $this->plugin_name ),
+			'filter_items_list'		=> __( 'Filtrer la liste des publications', $this->plugin_name ),
 		);
 
 		$rewrite = array(
-			'slug'					=> 'images',
+			'slug'					=> 'publications',
 			'with_front'			=> true,
 			'pages'					=> true,
 			'feeds'					=> true,
 		);
 
 		$args = array(
-			'label'					=> 'image',
-			'description'			=> __( 'Les images', $this->plugin_name ),
+			'label'					=> 'publication',
+			'description'			=> __( 'Les publications', $this->plugin_name ),
 			'labels'				=> $labels,
 			'supports'				=> array( 'title', 'editor', 'author', 'thumbnail' ),
 			'taxonomies'			=> array( 'tag' ),
@@ -110,6 +109,7 @@ class Images_Admin_Post_Type {
 			'show_in_menu'			=> true,
 			'show_in_admin_bar'		=> true,
 			'show_in_rest'			=> true,
+			'rest_base'             => 'publication',
 			'menu_position'			=> 5,
 			'menu_icon'				=> 'dashicons-format-image',
 			'can_export'			=> true,
@@ -119,7 +119,7 @@ class Images_Admin_Post_Type {
 			'rewrite'				=> $rewrite,
 			'capability_type'		=> 'post',
 		);
-		register_post_type( 'image', $args );
+		register_post_type( 'publication', $args );
 	}
 
 
@@ -131,7 +131,7 @@ class Images_Admin_Post_Type {
 	public function css() {
 		?>
 		<style>
-			#dashboard_right_now .image-count:before { content: "\f128"; }
+			#dashboard_right_now .publication-count:before { content: "\f128"; }
 			.fixed .column-thumbnail {
 				width: 62px;
 			}
@@ -167,7 +167,7 @@ class Images_Admin_Post_Type {
 	public function add_custom_columns( $columns ) {
 		global $typenow;
 
-		if ( 'image' !== $typenow ) {
+		if ( 'publication' !== $typenow ) {
 			return;
 		}
 
@@ -208,7 +208,7 @@ class Images_Admin_Post_Type {
 					array( 'class' => '' )
 				);
 
-				include plugin_dir_path( __FILE__ ) . 'partials/images-admin-post-type-thumbnail-column.php';
+				include plugin_dir_path( __FILE__ ) . 'partials/publications-admin-post-type-thumbnail-column.php';
 
 				break;
 		}
@@ -252,5 +252,18 @@ class Images_Admin_Post_Type {
 		}
 
 		return $items;
+	}
+
+	/*
+	 * Register REST route
+	 */
+	function register_rest_route() {
+		register_rest_route( 
+			'wp/v2', 
+			'/image/', 
+			array(
+				'methods'   => 'GET'
+			) 
+		);
 	}
 }

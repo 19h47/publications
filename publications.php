@@ -10,18 +10,18 @@
  *
  * @link				http://19h47.fr
  * @since				1.0.0
- * @package				Images
+ * @package				Publications
  *
  * @wordpress-plugin
- * Plugin Name:			Images
- * Plugin URI:			https://github.com/19h47/images
+ * Plugin Name:			Publications
+ * Plugin URI:			https://github.com/19h47/publications
  * Description:			Instagram's post to WordPress Post
  * Version:				1.0.0
  * Author:				Jérémy Levron
  * Author URI:			http://19h47.fr
  * License:				GPL-2.0+
  * License URI:			http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:			mgs
+ * Text Domain:			pblctns
  * Domain Path:			/languages
  */
 
@@ -36,31 +36,31 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer	https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'IMAGES', '1.0.0' );
+define( 'PUBLICATIONS', '1.0.0' );
 
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-images-activator.php
+ * This action is documented in includes/class-publications-activator.php
  */
-function activate_images() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-images-activator.php';
-	Images_Activator::activate();
+function activate_publications() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-publications-activator.php';
+	Publications_Activator::activate();
 }
 
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-images-deactivator.php
+ * This action is documented in includes/class-publications-deactivator.php
  */
-function deactivate_images() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-images-deactivator.php';
-	Images_Deactivator::deactivate();
+function deactivate_publications() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-publications-deactivator.php';
+	Publications_Deactivator::deactivate();
 }
 
 
-register_activation_hook( __FILE__, 'activate_images' );
-register_deactivation_hook( __FILE__, 'deactivate_images' );
+register_activation_hook( __FILE__, 'activate_publications' );
+register_deactivation_hook( __FILE__, 'deactivate_publications' );
 
 
 /**
@@ -73,7 +73,7 @@ require_once( __DIR__ . '/vendor/autoload.php' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-images.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-publications.php';
 
 
 /**
@@ -85,9 +85,9 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-images.php';
  *
  * @since				1.0.0
  */
-function run_images() {
+function run_publications() {
 
-	$plugin = new Images();
+	$plugin = new Publications();
 	$plugin->run();
 }
-run_images();
+run_publications();

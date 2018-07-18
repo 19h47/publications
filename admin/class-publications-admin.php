@@ -6,8 +6,8 @@
  * @link		http://19h47.fr
  * @since		1.0.0
  *
- * @package		Images
- * @subpackage	Images/admin
+ * @package		Publications
+ * @subpackage	Publications/admin
  */
 
 
@@ -17,11 +17,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package		Images
- * @subpackage	Images/admin
+ * @package		Publications
+ * @subpackage	Publications/admin
  * @author		Jérémy Levron <jeremylevron@19h47.fr>
  */
-class Images_Admin {
+class Publications_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -63,10 +63,15 @@ class Images_Admin {
 	 * @since	1.0.0
 	 */
 	public function enqueue_styles() {
+		global $typenow;
+
+		if ( 'publication' !== $typenow ) {
+			return;
+		}
 
 		wp_enqueue_style(
 			$this->plugin_name,
-			plugin_dir_url( __FILE__ ) . 'css/images-admin.css',
+			plugin_dir_url( __FILE__ ) . 'css/publications-admin.css',
 			array(),
 			$this->version,
 			'all'
@@ -81,10 +86,15 @@ class Images_Admin {
 	 * @since	1.0.0
 	 */
 	public function enqueue_scripts() {
+		global $typenow;
+
+		if ( 'publication' !== $typenow ) {
+			return;
+		}
 
 		wp_enqueue_script(
 			$this->plugin_name,
-			plugin_dir_url( __FILE__ ) . 'js/images-admin.js',
+			plugin_dir_url( __FILE__ ) . 'js/publications-admin.js',
 			array( 'jquery' ),
 			$this->version, false
 		);

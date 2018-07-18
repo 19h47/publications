@@ -7,15 +7,15 @@
  * @link			http://19h47.fr
  * @since			1.0.0
  *
- * @package			Status
- * @subpackage		Status/admin/partials
+ * @package			Publications
+ * @subpackage		Publications/admin/partials
  *
  */
 
-echo '<p>' . get_post_meta( $post->ID, '_image_id', true ) . '</p>';
+echo '<p>' . get_post_meta( $post->ID, '_publication_id', true ) . '</p>';
 echo '<p><a';
 echo ' class="button-link"';
-echo ' href="' . get_post_meta( $post->ID, '_image_url', true ) . '"';
+echo ' href="' . get_post_meta( $post->ID, '_publication_url', true ) . '"';
 echo ' target="_blank">Instagram\'s post URL</a></p>';
 echo '<p>' . get_the_ID() . '<p>';
 

@@ -7,8 +7,8 @@
  * @link		http://19h47.fr
  * @since		1.0.0
  *
- * @package		Images
- * @subpackage	Images/admin/partials
+ * @package		Publications
+ * @subpackage	Publications/admin/partials
  *
  */
 

@@ -9,8 +9,8 @@
  * @link		http://19h47.fr
  * @since		1.0.0
  *
- * @package		Images
- * @subpackage	Images/includes
+ * @package		Publications
+ * @subpackage	Publications/includes
  */
 
 
@@ -21,11 +21,11 @@
  * so that it is ready for translation.
  *
  * @since		1.0.0
- * @package		Images
- * @subpackage	Images/includes
+ * @package		Publications
+ * @subpackage	Publications/includes
  * @author		Jérémy Levron <jeremylevron@19h47.fr>
  */
-class Images_i18n {
+class Publications_i18n {
 
 
 	/**

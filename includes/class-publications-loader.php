@@ -22,7 +22,7 @@
  * @subpackage	Images/includes
  * @author		Jérémy Levron <jeremylevron@19h47.fr>
  */
-class Images_Loader {
+class Publications_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

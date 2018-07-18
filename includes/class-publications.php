@@ -9,8 +9,8 @@
  * @link		http://19h47.fr
  * @since		1.0.0
  *
- * @package		Images
- * @subpackage	Images/includes
+ * @package		Publications
+ * @subpackage	Publications/includes
  */
 
 
@@ -24,19 +24,20 @@
  * version of the plugin.
  *
  * @since		1.0.0
- * @package		Images
- * @subpackage	Images/includes
+ * @package		Publications
+ * @subpackage	Publications/includes
  * @author		Jérémy Levron <jeremylevron@19h47.fr>
  */
-class Images {
+class Publications {
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
+	 * The loader that's responsible for maintaining and registering all hooks 
+	 * that power the plugin.
 	 *
 	 * @since	1.0.0
 	 * @access	protected
-	 * @var		Images_Loader		$loader		Maintains and registers all hooks for the plugin.
+	 * @var		Publications_Loader		$loader		Maintains and registers all 
+	 *												hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -44,9 +45,10 @@ class Images {
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since	1.0.0
+	 * @since		1.0.0
 	 * @access	protected
-	 * @var		string		$plugin_name		The string used to uniquely identify this plugin.
+	 * @var			string		$plugin_name		The string used to uniquely 
+	 *												identify this plugin.
 	 */
 	protected $plugin_name;
 
@@ -54,9 +56,9 @@ class Images {
 	/**
 	 * The current version of the plugin.
 	 *
-	 * @since	1.0.0
-	 * @access	protected
-	 * @var		string		$version		The current version of the plugin.
+	 * @since		1.0.0
+	 * @access		protected
+	 * @var			string		$version			The current version of the plugin.
 	 */
 	protected $version;
 
@@ -64,8 +66,8 @@ class Images {
 	/**
 	 * Config
 	 *
-	 * @since	1.0.0
-	 * @access	protected
+	 * @since		1.0.0
+	 * @access		protected
 	 */
 	protected $config;
 
@@ -77,7 +79,7 @@ class Images {
 	 * Load the dependencies, define the locale, and set the hooks for the admin area and
 	 * the public-facing side of the site.
 	 *
-	 * @since	1.0.0
+	 * @since		1.0.0
 	 */
 	public function __construct() {
 		if ( defined( 'IMAGES' ) ) {
@@ -108,16 +110,16 @@ class Images {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Images_Loader. Orchestrates the hooks of the plugin.
-	 * - Images_i18n. Defines internationalization functionality.
-	 * - Images_Admin. Defines all hooks for the admin area.
-	 * - Images_Public. Defines all hooks for the public side of the site.
+	 * - Publications_Loader. Orchestrates the hooks of the plugin.
+	 * - Publications_i18n. Defines internationalization functionality.
+	 * - Publications_Admin. Defines all hooks for the admin area.
+	 * - Publications_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
 	 * @since		1.0.0
-	 * @access	private
+	 * @access		private
 	 */
 	private function load_dependencies() {
 
@@ -131,67 +133,70 @@ class Images {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-images-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-publications-loader.php';
 
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-images-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-publications-i18n.php';
 
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-images-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-publications-admin.php';
 
 
 		/**
 		 * The class responsible for defining all actions relating to metaboxes.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-images-admin-metaboxes.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-publications-admin-metaboxes.php';
 
 
 		/**
 		 * The class responsible for defining all actions relating to post type.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-images-admin-post-type.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-publications-admin-post-type.php';
 
 
 		/**
 		 * The class responsible for defining all actions relating to taxonomy.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-images-admin-taxonomy.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-publications-admin-taxonomy.php';
 
 
 		/**
 		 * The class responsible for defining connection
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-images-admin-connection.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-publications-admin-connection.php';
 
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-images-admin-insert-post.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-publications-admin-insert-post.php';
 
 
-		$this->loader = new Images_Loader();
+		$this->loader = new Publications_Loader();
 	}
 
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Images_i18n class in order to set the domain and to register the hook
+	 * Uses the Publications_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since		1.0.0
-	 * @access	private
+	 * @access		private
 	 */
 	private function set_locale() {
+		$plugin_i18n = new Publications_i18n();
 
-		$plugin_i18n = new Images_i18n();
-
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		$this->loader->add_action( 
+			'plugins_loaded', 
+			$plugin_i18n, 
+			'load_plugin_textdomain'
+		);
 	}
 
 
@@ -200,11 +205,10 @@ class Images {
 	 * of the plugin.
 	 *
 	 * @since		1.0.0
-	 * @access	private
+	 * @access		private
 	 */
 	private function define_admin_hooks() {
-
-		$plugin_admin = new Images_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Publications_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -215,29 +219,43 @@ class Images {
 	 * Register all of the hooks related to post type
 	 *
 	 * @since		1.0.0
-	 * @access	private
+	 * @access		private
 	 */
 	private function define_post_type_hooks() {
 
-		$plugin_post_type = new Images_Admin_Post_Type( $this->get_plugin_name(), $this->get_version() );
+		$plugin_post_type = new Publications_Admin_Post_Type( 
+			$this->get_plugin_name(), 
+			$this->get_version() 
+		);
 
-			$this->loader->add_action( 'init', $plugin_post_type, 'register_post_type' );
-			$this->loader->add_action( 'admin_head', $plugin_post_type, 'css' );
+		$this->loader->add_action( 'init', $plugin_post_type, 'register_post_type' );
+		$this->loader->add_action( 'admin_head', $plugin_post_type, 'css' );
 
-			$this->loader->add_filter( 'dashboard_glance_items', $plugin_post_type, 'at_a_glance' );
-			$this->loader->add_filter(
-				'manage_image_posts_columns',
-				$plugin_post_type,
-				'add_custom_columns'
-			);
+		$this->loader->add_filter( 
+			'dashboard_glance_items',
+			$plugin_post_type,
+			'at_a_glance'
+		);
 
-			$this->loader->add_action(
-				'manage_image_posts_custom_column',
-				$plugin_post_type,
-				'render_custom_columns',
-				10,
-				2
-			);
+		$this->loader->add_filter(
+			'manage_publication_posts_columns',
+			$plugin_post_type,
+			'add_custom_columns'
+		);
+
+		$this->loader->add_action(
+			'manage_publication_posts_custom_column',
+			$plugin_post_type,
+			'render_custom_columns',
+			10,
+			2
+		);
+
+		$this->loader->add_action( 
+			'rest_api_init', 
+			$plugin_post_type,
+			'register_rest_route' 
+		);
 	}
 
 
@@ -245,23 +263,33 @@ class Images {
 	 * Register all of the hooks related to taxonomy
 	 *
 	 * @since		1.0.0
-	 * @access	private
+	 * @access		private
 	 */
 	private function define_taxonomy_hooks() {
 
-		$plugin_taxonomy = new Images_Admin_Taxonomy( $this->get_plugin_name(), $this->get_version() );
+		$plugin_taxonomy = new Publications_Admin_Taxonomy( 
+			$this->get_plugin_name(), 
+			$this->get_version() 
+		);
 
-		$this->loader->add_action( 'init', $plugin_taxonomy, 'register_taxonomy', 0 );
+		$this->loader->add_action( 
+			'init', 
+			$plugin_taxonomy, 
+			'register_taxonomy', 
+			0
+		);
 	}
 
 
 	/**
+	 * Connection
+	 * 
 	 * @since		1.0.0
-	 * @access	private
+	 * @access		private
 	 */
 	private function define_connection() {
 
-		$plugin_connection = new Images_Admin_Connection(
+		$plugin_connection = new Publications_Admin_Connection(
 			$this->get_plugin_name(),
 			$this->get_version()
 		);
@@ -271,39 +299,45 @@ class Images {
 
 
 	/**
-	 * @since  1.0.0
-	 * @access private
+	 * Insert post
+	 * 
+	 * @since		1.0.0
+	 * @access		private
 	 */
 	private function define_insert_post() {
 
-		$plugin_insert_post = new Images_Admin_Insert_Post(
+		$plugin_insert_post = new Publications_Admin_Insert_Post(
 			$this->get_plugin_name(),
 			$this->get_version(),
 			$this->images
 		);
 
-		// $this->loader->add_action(
-		// 	'import_instagrams_post_as_posts',
-		// 	$plugin_insert_post,
-		// 	'insert_post'
-		// );
+		$this->loader->add_action(
+			'import_instagrams_post_as_posts',
+			$plugin_insert_post,
+			'insert_post'
+		);
 	}
 
 
 	/**
 	 * Register all of the hooks related to metaboxes
 	 *
-	 * @since 		1.0.0
-	 * @access 		private
+	 * @since		1.0.0
+	 * @access		private
 	 */
 	private function define_metabox_hooks() {
 
-		$plugin_metaboxes = new Images_Admin_Metaboxes(
+		$plugin_metaboxes = new Publications_Admin_Metaboxes(
 			$this->get_plugin_name(),
 			$this->get_version()
 		);
 
-		$this->loader->add_action( 'add_meta_boxes', $plugin_metaboxes, 'add_metaboxes' );
+		$this->loader->add_action( 
+			'add_meta_boxes', 
+			$plugin_metaboxes, 
+			'add_metaboxes'
+		);
 	}
 
 
@@ -333,7 +367,7 @@ class Images {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since		1.0.0
-	 * @return		Images_Loader		Orchestrates the hooks of the plugin.
+	 * @return		Publications_Loader		Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

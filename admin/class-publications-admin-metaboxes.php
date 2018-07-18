@@ -18,7 +18,7 @@
  * @subpackage		Images/admin
  * @author			Jérémy Levron	<jeremylevron@19h47.fr>
  */
-class Images_Admin_Metaboxes {
+class Publications_Admin_Metaboxes {
 
 	/**
 	 * The ID of this plugin.
@@ -65,15 +65,15 @@ class Images_Admin_Metaboxes {
 		add_meta_box(
 			'image_additional_information',
 			apply_filters(
-				$this->plugin_name . '-metabox-image-additional-information',
-				esc_html__( 'Additional Information', 'image' )
+				$this->plugin_name . '-metabox-publication-additional-information',
+				esc_html__( 'Additional Information', 'publications' )
 			),
 			array( $this, 'metabox' ),
-			'image',
+			'publication',
 			'side',
 			'default',
 			array(
-				'file' => 'image-additional-information'
+				'file' => 'publication-additional-information'
 			)
 		);
 	}
@@ -92,11 +92,11 @@ class Images_Admin_Metaboxes {
 			return;
 		}
 
-		if ( $post->post_type !== 'image' ) {
+		if ( $post->post_type !== 'publication' ) {
 			return;
 		}
 
 
-		include plugin_dir_path( __FILE__ ) . 'partials/images-admin-metabox-' . $params['args']['file'] . '.php';
+		include plugin_dir_path( __FILE__ ) . 'partials/publications-admin-metabox-' . $params['args']['file'] . '.php';
 	}
 }

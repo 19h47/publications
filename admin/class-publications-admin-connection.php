@@ -4,8 +4,8 @@
  * @link			http://19h47.fr
  * @since			1.0.0
  *
- * @package			Images
- * @subpackage		Images/admin
+ * @package			Publications
+ * @subpackage		Publications/admin
  */
 
 
@@ -18,11 +18,11 @@ use MetzWeb\Instagram\Instagram;
 
 
 /**
- * @package			Images
- * @subpackage		Images/admin
+ * @package			Publications
+ * @subpackage		Publications/admin
  * @author			Jérémy Levron	<jeremylevron@19h47.fr>
  */
-class Images_Admin_Connection {
+class Publications_Admin_Connection {
 
 	/**
 	 * The ID of this plugin.
@@ -82,7 +82,16 @@ class Images_Admin_Connection {
 		// Store user
 		$user = $connection->getUser();
 
-		if ( isset( $user->error_message ) ) return false;
+		if ( isset( $user->error_message ) ) {
+
+			add_action( 'admin_notices', function() use ($user) {
+				?><div class="error notice">
+					<p><?php echo $user->error_message ?></p>
+				</div><?php 
+			});
+			
+			return false;
+		}
 
 		$count = $user->data->counts->media;
 		$content = array();

@@ -6,19 +6,19 @@
  * @link		http://19h47.fr
  * @since		1.0.0
  *
- * @package		Images
- * @subpackage	Images/admin
+ * @package		Publications
+ * @subpackage	Publications/admin
  */
 
 
 /**
  * Insert post
  *
- * @package		Images
- * @subpackage	Images/admin
+ * @package		Publications
+ * @subpackage	Publications/admin
  * @author		Jérémy Levron	<jeremylevron@19h47.fr>
  */
-class Images_Admin_Insert_Post {
+class Publications_Admin_Insert_Post {
 
 	/**
 	 * The ID of this plugin.
@@ -46,7 +46,7 @@ class Images_Admin_Insert_Post {
 	 * @since	1.0.0
 	 * @access	private
 	 */
-	private $images;
+	private $publications;
 
 
 	/**
@@ -56,11 +56,11 @@ class Images_Admin_Insert_Post {
 	 * @param	string			$plugin_name		The name of this plugin.
 	 * @param	string			$version			The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version, $images ) {
+	public function __construct( $plugin_name, $version, $publications ) {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		$this->images = $images;
+		$this->publications = $publications;
 
 		add_action( 'admin_init', array( $this, 'insert_post' ) );
 	}
@@ -69,19 +69,19 @@ class Images_Admin_Insert_Post {
 	/**
 	 * Insert post
 	 *
-	 * @param $images
+	 * @param $publications
 	 */
 	function insert_post() {
 
-		if ( ! isset( $this->images->data ) ) return false;
+		if ( ! isset( $this->publications->data ) ) return false;
 
-		foreach ( $this->images->data as $data ) {
+		foreach ( $this->publications->data as $data ) {
 
 			$post_exist = get_posts(
 				array(
-					'post_type' 	=> 'image',
+					'post_type' 	=> 'publication',
 					'post_status' 	=> 'any',
-					'meta_key' 		=> '_image_id',
+					'meta_key' 		=> '_publication_id',
 					'meta_value' 	=> (int) $data->id,
 				)
 			);
@@ -90,15 +90,15 @@ class Images_Admin_Insert_Post {
 
 			// return false;
 
-			$image_text = $this->text( $data->caption->text );
-			$image_text = $this->follow( $image_text );
+			$text = $this->text( $data->caption->text );
+			$text = $this->follow( $text );
 			$post_title = $this->title( $data->caption->text );
 
 			foreach ( $data->tags as $tag ) {
 				$tagFindPattern = "/#{$tag}/";
 				$tagUrl = "https://www.instagram.com/explore/tags/{$tag}";
 				$tagReplace = "<a href=\"{$tagUrl}\" target=\"_blank\">#{$tag}</a>";
-				$image_text = preg_replace( $tagFindPattern, $tagReplace, $image_text );
+				$text = preg_replace( $tagFindPattern, $tagReplace, $text );
 			}
 
 
@@ -111,7 +111,7 @@ class Images_Admin_Insert_Post {
 			// postarr
 			$postarr = array(
 				'post_author'		=> 1,
-				'post_content'		=> $image_text,
+				'post_content'		=> $text,
 				'post_date'			=> $date,
 				'post_date_gmt'		=> $date,
 				'post_modified'		=> $date,
@@ -132,8 +132,8 @@ class Images_Admin_Insert_Post {
 			// Instagram's post Original link
 			$image_url = $data->link;
 
-			update_post_meta( $post_id, '_image_id', (int) $data->id );
-			update_post_meta( $post_id, '_image_url', $image_url );
+			update_post_meta( $post_id, '_publication_id', (int) $data->id );
+			update_post_meta( $post_id, '_publication_url', $image_url );
 		}
 	}
 
@@ -141,45 +141,45 @@ class Images_Admin_Insert_Post {
 	/**
 	 * Text
 	 *
-	 * @param	str				$image_text
+	 * @param	str				$text
 	 * @author	Jérémy Levron	<jeremylevron@19h47.fr>
 	 */
-	function text( $image_text ) {
+	function text( $text ) {
 
 		// Convert url to HTML link
 		$link_pattern = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/[^\s\…\.]*)?/";
 		$link_replace = '<a href="${0}" target="_blank">${0}</a>';
 
-		return preg_replace( $link_pattern, $link_replace, $image_text );
+		return preg_replace( $link_pattern, $link_replace, $text );
 	}
 
 
 	/**
 	 * Follow
 	 *
-	 * @param	str				$image_text
+	 * @param	str				$text
 	 * @author	Jérémy Levron	<jeremylevron@19h47.fr>
 	 */
-	function follow( $image_text ) {
+	function follow( $text ) {
 
 		// Convert @ to follow
 		$follow_pattern = '/(@([_a-z0-9\-]+))/i';
 		$follow_replace = '<a href="https://www.instagram.com/19h47/${0}" target="_blank">${0}</a>';
 
-		return preg_replace( $follow_pattern, $follow_replace, $image_text );
+		return preg_replace( $follow_pattern, $follow_replace, $text );
 	}
 
 
 	/**
 	 * Title
 	 *
-	 * @param	str $image_text
+	 * @param	str $text
 	 * @author	Jérémy Levron <jeremylevron@19h47.fr>
 	 */
-	function title( $image_text ) {
+	function title( $text ) {
 
 		$link_pattern = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/[^\s\…\.]*)?/";
-		$post_title = preg_replace( $link_pattern, '', $image_text );
+		$post_title = preg_replace( $link_pattern, '', $text );
 
 			if ( strlen( $post_title ) >= 60 ) {
 			substr( $post_title, 0, 60 ) . '...';

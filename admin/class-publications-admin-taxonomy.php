@@ -6,19 +6,19 @@
  * @link		http://19h47.fr
  * @since		1.0.0
  *
- * @package		Images
- * @subpackage	Images/admin
+ * @package		Publications
+ * @subpackage	Publications/admin
  */
 
 
 /**
  * The taxonomy of the plugin.
  *
- * @package		Images
- * @subpackage	Images/admin
+ * @package		Publications
+ * @subpackage	Publications/admin
  * @author		Jérémy Levron <jeremylevron@19h47.fr>
  */
-class Images_Admin_Taxonomy {
+class Publications_Admin_Taxonomy {
 
 	/**
 	 * The ID of this plugin.
@@ -93,6 +93,6 @@ class Images_Admin_Taxonomy {
 			'show_tagcloud'					=> true,
 		);
 
-		register_taxonomy( 'tag', array( 'image' ), $args );
+		register_taxonomy( 'tag', array( 'publication' ), $args );
 	}
 }
