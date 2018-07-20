@@ -58,6 +58,12 @@ class Publications_Admin_Insert_Post {
 	protected $config;
 
 
+	/**
+	 * Connection
+	 *
+	 * @since		1.0.0
+	 * @access		protected
+	 */
 	protected $connection;
 
 
@@ -81,8 +87,6 @@ class Publications_Admin_Insert_Post {
 			$this->plugin_name,
 			$this->version
 		);
-
-		// add_action( 'admin_init', array( $this, 'insert_post' ) );
 	}
 
 
@@ -107,21 +111,21 @@ class Publications_Admin_Insert_Post {
 
 			if ( $post_exist ) continue; // Do Nothing
 
-			// return false;
-
-			$text = $this->text( $publication->caption->text );
-			$text = $this->follow( $text );
+			// Post content
+			$post_content = $this->text( $publication->caption->text );
+			$post_content = $this->follow( $post_content );
 			$post_title = $this->title( $publication->caption->text );
 
+			// Tag
 			foreach ( $publication->tags as $tag ) {
 				$tagFindPattern = "/#{$tag}/";
 				$tagUrl = "https://www.instagram.com/explore/tags/{$tag}";
 				$tagReplace = "<a href=\"{$tagUrl}\" target=\"_blank\">#{$tag}</a>";
-				$text = preg_replace( $tagFindPattern, $tagReplace, $text );
+				$post_content = preg_replace( $tagFindPattern, $tagReplace, $post_content );
 			}
 
-
-			$date = date_i18n(
+			// Post date
+			$post_date = date_i18n(
 				'Y-m-d H:i:s',
 				(int) $publication->created_time
 			);
@@ -130,11 +134,11 @@ class Publications_Admin_Insert_Post {
 			// postarr
 			$postarr = array(
 				'post_author'		=> 1,
-				'post_content'		=> $text,
-				'post_date'			=> $date,
-				'post_date_gmt'		=> $date,
-				'post_modified'		=> $date,
-				'post_modified_gmt'	=> $date,
+				'post_content'		=> $post_content,
+				'post_date'			=> $post_date,
+				'post_date_gmt'		=> $post_date,
+				'post_modified'		=> $post_date,
+				'post_modified_gmt'	=> $post_date,
 				'post_title'		=> $post_title,
 				'post_type'			=> 'publication',
 			);
@@ -148,7 +152,6 @@ class Publications_Admin_Insert_Post {
 
 			$this->insert_image_media( $publication, $post_id );
 			
-
 			update_post_meta( $post_id, '_publication_id', (int) $publication->id );
 			update_post_meta( $post_id, '_publication_url', $publication->link );
 		}
@@ -158,47 +161,47 @@ class Publications_Admin_Insert_Post {
 	/**
 	 * Text
 	 *
-	 * @param	str				$text
+	 * @param	str				$post_content
 	 * @author	Jérémy Levron	<jeremylevron@19h47.fr>
 	 */
-	function text( $text ) {
+	function text( $post_content ) {
 
 		// Convert url to HTML link
 		$link_pattern = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/[^\s\…\.]*)?/";
 		$link_replace = '<a href="${0}" target="_blank">${0}</a>';
 
-		return preg_replace( $link_pattern, $link_replace, $text );
+		return preg_replace( $link_pattern, $link_replace, $post_content );
 	}
 
 
 	/**
 	 * Follow
 	 *
-	 * @param	str				$text
+	 * @param	str				$post_content
 	 * @author	Jérémy Levron	<jeremylevron@19h47.fr>
 	 */
-	function follow( $text ) {
+	function follow( $post_content ) {
 
 		// Convert @ to follow
 		$follow_pattern = '/(@([_a-z0-9\-]+))/i';
 		$follow_replace = '<a href="https://www.instagram.com/19h47/${0}" target="_blank">${0}</a>';
 
-		return preg_replace( $follow_pattern, $follow_replace, $text );
+		return preg_replace( $follow_pattern, $follow_replace, $post_content );
 	}
 
 
 	/**
-	 * Title
+	 * Post title
 	 *
-	 * @param	str $text
+	 * @param	str $post_content
 	 * @author	Jérémy Levron <jeremylevron@19h47.fr>
 	 */
-	function title( $text ) {
+	function title( $post_content ) {
 
 		$link_pattern = "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/[^\s\…\.]*)?/";
-		$post_title = preg_replace( $link_pattern, '', $text );
+		$post_title = preg_replace( $link_pattern, '', $post_content );
 
-			if ( strlen( $post_title ) >= 60 ) {
+		if ( strlen( $post_title ) >= 60 ) {
 			substr( $post_title, 0, 60 ) . '...';
 		}
 
@@ -207,7 +210,9 @@ class Publications_Admin_Insert_Post {
 
 
 	/**
-	 * Hashtags
+	 * Tags
+	 *
+	 * Construct an array of tag
 	 *
 	 * @param	obj				$publication Instagram's post
 	 * @return	arr				$tags
@@ -244,18 +249,13 @@ class Publications_Admin_Insert_Post {
 
 		if ( $publication->type === 'video' ) return;
 
-		$i = 0;
-		foreach ( $publication->images as $media ) {
+		if ( $publication->type === 'carousel' ) return;
 
-			$thumbnail_id = insert_attachment_from_url( 
-				$publication->images->standard_resolution->url, 
-				$post_id 
-			);
+		$thumbnail_id = insert_attachment_from_url( 
+			$publication->images->standard_resolution->url, 
+			$post_id 
+		);
 
-			if ( $i === 0 ) {
-				set_post_thumbnail( $post_id, $thumbnail_id );
-			}
-			$i++;
-		}
+		set_post_thumbnail( $post_id, $thumbnail_id );
 	}
 }
