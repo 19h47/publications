@@ -33,3 +33,8 @@ Locate the `config-sample.json`, fill it with your personal informations and the
 - [Instagram Developer](https://www.instagram.com/developer/)
 - [Instagram Clients Management](https://www.instagram.com/developer/clients/manage/)
 - [Insert attachment from url](https://gist.github.com/m1r0/f22d5237ee93bcccb0d9)
+
+## To do
+
+- [Creating a custom settings page](https://developer.wordpress.org/plugins/settings/custom-settings-page/)
+- Retrieve more than 20 posts
