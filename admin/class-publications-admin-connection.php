@@ -52,6 +52,7 @@ class Publications_Admin_Connection {
 	 * @param		string			$version			The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
+
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 	}
@@ -85,18 +86,9 @@ class Publications_Admin_Connection {
 			add_action( 'admin_notices', function() use ($user) {
 				include plugin_dir_path( __FILE__ ) . 'partials/publications-admin-notices.php';
 			});
-			return $user->error_message;
+			return false;
 		}
 
-		$count = $user->data->counts->media;
-		$content = array();
-
-		for ( $i = 0; $i <= $count; $i = $i + 20) { 
-			array_push( $content, $connection->getUserMedia( 'self', $i ) );
-		}
-
-		// var_dump( $content );
-
-		return $content;
+		return $connection->getUserMedia()->data;
 	}
 }

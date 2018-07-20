@@ -22,7 +22,7 @@
  * @link		http://19h47.fr
  * @since		1.0.0
  *
- * @package		Images
+ * @package		Publications
  */
 
 // If uninstall not called from WordPress, then exit.

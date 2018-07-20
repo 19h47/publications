@@ -40,7 +40,25 @@ class Publications_Admin_Insert_Post {
 	private $version;
 
 
-	private $config;
+	/**
+	 * Publications
+	 *
+	 * @since	1.0.0
+	 * @access	private
+	 */
+	private $publications;
+
+
+	/**
+	 * Config
+	 *
+	 * @since		1.0.0
+	 * @access		protected
+	 */
+	protected $config;
+
+
+	protected $connection;
 
 
 	/**
@@ -49,11 +67,20 @@ class Publications_Admin_Insert_Post {
 	 * @since	1.0.0
 	 * @param	string			$plugin_name		The name of this plugin.
 	 * @param	string			$version			The version of this plugin.
+	 * @param	string			$config
 	 */
 	public function __construct( $plugin_name, $version, $config ) {
+
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		$this->config = $config;
+
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-publications-admin-connection.php';
+
+		$this->connection = new Publications_Admin_Connection(
+			$this->plugin_name,
+			$this->version
+		);
 
 		// add_action( 'admin_init', array( $this, 'insert_post' ) );
 	}
@@ -62,33 +89,31 @@ class Publications_Admin_Insert_Post {
 	/**
 	 * Insert post
 	 *
+	 * @param $publications
 	 */
 	function insert_post() {
+		$this->publications = $this->connection::connection( $this->config );
 
-		$publications = do_action( 'instagram_connection', $this->config );
-		var_dump( $publications );
-
-		
-		if ( ! isset( $publications ) || empty( $publications ) ) return false;
-
-		foreach ( $publications as $data->data ) {
+		foreach ( $this->publications as $publication ) {
 
 			$post_exist = get_posts(
 				array(
 					'post_type' 	=> 'publication',
 					'post_status' 	=> 'any',
 					'meta_key' 		=> '_publication_id',
-					'meta_value' 	=> (int) $data->id,
+					'meta_value' 	=> (int) $publication->id,
 				)
 			);
 
 			if ( $post_exist ) continue; // Do Nothing
 
-			$text = $this->text( $data->caption->text );
-			$text = $this->follow( $text );
-			$post_title = $this->title( $data->caption->text );
+			// return false;
 
-			foreach ( $data->tags as $tag ) {
+			$text = $this->text( $publication->caption->text );
+			$text = $this->follow( $text );
+			$post_title = $this->title( $publication->caption->text );
+
+			foreach ( $publication->tags as $tag ) {
 				$tagFindPattern = "/#{$tag}/";
 				$tagUrl = "https://www.instagram.com/explore/tags/{$tag}";
 				$tagReplace = "<a href=\"{$tagUrl}\" target=\"_blank\">#{$tag}</a>";
@@ -98,7 +123,7 @@ class Publications_Admin_Insert_Post {
 
 			$date = date_i18n(
 				'Y-m-d H:i:s',
-				(int) $data->created_time
+				(int) $publication->created_time
 			);
 
 
@@ -117,17 +142,15 @@ class Publications_Admin_Insert_Post {
 
 
 			// Tags
-			foreach ( $this->tags( $data ) as $tag ) {
+			foreach ( $this->tags( $publication ) as $tag ) {
 				wp_set_object_terms( $post_id, $tag, 'tag', true );
 			}
 
-			$this->insert_image_media( $data, $post_id );
+			$this->insert_image_media( $publication, $post_id );
+			
 
-			// Instagram's post Original link
-			$image_url = $data->link;
-
-			update_post_meta( $post_id, '_publication_id', (int) $data->id );
-			update_post_meta( $post_id, '_publication_url', $image_url );
+			update_post_meta( $post_id, '_publication_id', (int) $publication->id );
+			update_post_meta( $post_id, '_publication_url', $publication->link );
 		}
 	}
 
@@ -186,19 +209,19 @@ class Publications_Admin_Insert_Post {
 	/**
 	 * Hashtags
 	 *
-	 * @param	obj				$data Instagram's post
+	 * @param	obj				$publication Instagram's post
 	 * @return	arr				$tags
 	 * @author	Jérémy Levron	<jeremylevron@19h47.fr>
 	 */
-	function tags( $data ) {
+	function tags( $publication ) {
 
 		$tags = array();
 
-		if ( ! isset( $data->tags ) ) {
+		if ( ! isset( $publication->tags ) ) {
 			return;
 		}
 
-		foreach ( $data->tags as $tag ) {
+		foreach ( $publication->tags as $tag ) {
 			array_push( $tags, $tag );
 		}
 
@@ -209,23 +232,23 @@ class Publications_Admin_Insert_Post {
 	/**
 	 * Insert media
 	 *
-	 * @param 	object			$data Instagram's post object
+	 * @param 	object			$publication Instagram's post object
 	 * @param 	int				$post_id
 	 * @author Jérémy Levron	<jeremylevron@19h47.fr>
 	 */
-	function insert_image_media( $data, $post_id ) {
+	function insert_image_media( $publication, $post_id ) {
 
-		if ( ! isset( $data->images ) ) {
+		if ( ! isset( $publication->images ) ) {
 			return;
 		}
 
-		if ( $data->type === 'video' ) return;
+		if ( $publication->type === 'video' ) return;
 
 		$i = 0;
-		foreach ( $data->images as $media ) {
+		foreach ( $publication->images as $media ) {
 
 			$thumbnail_id = insert_attachment_from_url( 
-				$data->images->standard_resolution->url, 
+				$publication->images->standard_resolution->url, 
 				$post_id 
 			);
 

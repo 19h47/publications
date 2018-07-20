@@ -6,16 +6,16 @@
  * @link			http://19h47.fr
  * @since			1.0.0
  *
- * @package			Images
- * @subpackage		Images/admin
+ * @package			Publications
+ * @subpackage		Publications/admin
  */
 
 
 /**
  * The metabox-specific functionality of the plugin.
  *
- * @package			Images
- * @subpackage		Images/admin
+ * @package			Publications
+ * @subpackage		Publications/admin
  * @author			Jérémy Levron	<jeremylevron@19h47.fr>
  */
 class Publications_Admin_Metaboxes {

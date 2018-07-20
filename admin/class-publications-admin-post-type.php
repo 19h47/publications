@@ -196,7 +196,7 @@ class Publications_Admin_Post_Type {
 	public function render_custom_columns( $column_name, $post_id ) {
 		global $typenow;
 
-		if ( 'image' !== $typenow ) {
+		if ( 'publication' !== $typenow ) {
 			return;
 		}
 

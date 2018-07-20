@@ -1,12 +1,12 @@
-# Images
+# Publications
 
 A __WordPress__ plugin to turn your Instagram's post into WordPress posts.
 
-![Images](assets/screenshot.png)
+![Publications](assets/screenshot.png)
 
 ## Description
 
-__Publications__ allow you to turn your Instagram's post into a custom post type Image.
+__Publications__ allow you to turn your Instagram's post into a custom post type Publication.
 
 ## Installation
 

@@ -6,8 +6,8 @@
  * @link		http://19h47.fr
  * @since		1.0.0
  *
- * @package		Images
- * @subpackage	Images/includes
+ * @package		Publications
+ * @subpackage	Publications/includes
  */
 
 
@@ -18,8 +18,8 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package		Images
- * @subpackage	Images/includes
+ * @package		Publications
+ * @subpackage	Publications/includes
  * @author		Jérémy Levron <jeremylevron@19h47.fr>
  */
 class Publications_Loader {

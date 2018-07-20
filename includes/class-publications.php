@@ -3,8 +3,8 @@
 /**
  * The file that defines the core plugin class
  *
- * A class definition that includes attributes and functions used across both 
- * the public-facing side of the site and the admin area.
+ * A class definition that includes attributes and functions used across both the
+ * public-facing side of the site and the admin area.
  *
  * @link		http://19h47.fr
  * @since		1.0.0
@@ -36,8 +36,8 @@ class Publications {
 	 *
 	 * @since	1.0.0
 	 * @access	protected
-	 * @var		Publications_Loader		$loader			Maintains and registers 
-	 *													all hooks for the plugin.
+	 * @var		Publications_Loader		$loader		Maintains and registers all 
+	 *												hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -45,10 +45,10 @@ class Publications {
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since	1.0.0
+	 * @since		1.0.0
 	 * @access	protected
-	 * @var		string					$plugin_name	The string used to uniquely 
-	 *													identify this plugin.
+	 * @var			string		$plugin_name		The string used to uniquely 
+	 *												identify this plugin.
 	 */
 	protected $plugin_name;
 
@@ -58,8 +58,7 @@ class Publications {
 	 *
 	 * @since		1.0.0
 	 * @access		protected
-	 * @var			string		$version			The current version of the 
-	 *												plugin.
+	 * @var			string		$version			The current version of the plugin.
 	 */
 	protected $version;
 
@@ -74,28 +73,21 @@ class Publications {
 
 
 	/**
-	 * 
-	 */
-	protected $publications;
-
-
-	/**
 	 * Define the core functionality of the plugin.
 	 *
-	 * Set the plugin name and the plugin version that can be used throughout 
-	 * the plugin.
-	 * Load the dependencies, define the locale, and set the hooks for the admin
-	 * area and the public-facing side of the site.
+	 * Set the plugin name and the plugin version that can be used throughout the plugin.
+	 * Load the dependencies, define the locale, and set the hooks for the admin area and
+	 * the public-facing side of the site.
 	 *
 	 * @since		1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'IMAGES' ) ) {
-			$this->version = IMAGES;
+		if ( defined( 'PUBLICATIONS' ) ) {
+			$this->version = PUBLICATIONS;
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'images';
+		$this->plugin_name = 'publications';
 		$this->config = json_decode(
 			file_get_contents( __DIR__ . '/../config.json' ),
 			true
@@ -108,7 +100,7 @@ class Publications {
 		$this->define_metabox_hooks();
 		$this->define_post_type_hooks();
 		$this->define_taxonomy_hooks();
-		$this->define_connection();
+
 		$this->define_insert_post();
 	}
 
@@ -118,10 +110,10 @@ class Publications {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * Publications_Loader. Orchestrates the hooks of the plugin.
-	 * Publications_i18n. Defines internationalization functionality.
-	 * Publications_Admin. Defines all hooks for the admin area.
-	 * Publications_Public. Defines all hooks for the public side of the site.
+	 * - Publications_Loader. Orchestrates the hooks of the plugin.
+	 * - Publications_i18n. Defines internationalization functionality.
+	 * - Publications_Admin. Defines all hooks for the admin area.
+	 * - Publications_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -175,12 +167,6 @@ class Publications {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-publications-admin-taxonomy.php';
 
 
-		/**
-		 * The class responsible for defining connection
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-publications-admin-connection.php';
-
-
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-publications-admin-insert-post.php';
 
 
@@ -191,8 +177,8 @@ class Publications {
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Publications_i18n class in order to set the domain and to 
-	 * register the hook with WordPress.
+	 * Uses the Publications_i18n class in order to set the domain and to register the hook
+	 * with WordPress.
 	 *
 	 * @since		1.0.0
 	 * @access		private
@@ -216,17 +202,13 @@ class Publications {
 	 * @access		private
 	 */
 	private function define_admin_hooks() {
-		$plugin_admin = new Publications_Admin( 
-			$this->get_plugin_name(), 
-			$this->get_version() 
-		);
+		$plugin_admin = new Publications_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 
 			'admin_enqueue_scripts', 
 			$plugin_admin, 
 			'enqueue_styles' 
 		);
-
 		$this->loader->add_action( 
 			'admin_enqueue_scripts', 
 			$plugin_admin, 
@@ -242,17 +224,13 @@ class Publications {
 	 * @access		private
 	 */
 	private function define_post_type_hooks() {
+
 		$plugin_post_type = new Publications_Admin_Post_Type( 
 			$this->get_plugin_name(), 
 			$this->get_version() 
 		);
 
-		$this->loader->add_action( 
-			'init', 
-			$plugin_post_type, 
-			'register_post_type'
-		);
-
+		$this->loader->add_action( 'init', $plugin_post_type, 'register_post_type' );
 		$this->loader->add_action( 'admin_head', $plugin_post_type, 'css' );
 
 		$this->loader->add_filter( 
@@ -290,6 +268,7 @@ class Publications {
 	 * @access		private
 	 */
 	private function define_taxonomy_hooks() {
+
 		$plugin_taxonomy = new Publications_Admin_Taxonomy( 
 			$this->get_plugin_name(), 
 			$this->get_version() 
@@ -305,29 +284,13 @@ class Publications {
 
 
 	/**
-	 * Connection
-	 * 
-	 * @since		1.0.0
-	 * @access		private
-	 */
-	private function define_connection() {
-		$plugin_connection = new Publications_Admin_Connection(
-			$this->get_plugin_name(),
-			$this->get_version()
-		);
-
-		// $this->publications = $plugin_connection::connection( $this->config );
-		add_action( 'instagram_connection', array( $plugin_connection, 'connection' ), 10, 1 );
-	}
-
-
-	/**
 	 * Insert post
 	 * 
 	 * @since		1.0.0
-	 * @access		private
+	 * @access		public
 	 */
-	private function define_insert_post() {
+	public function define_insert_post() {
+
 		$plugin_insert_post = new Publications_Admin_Insert_Post(
 			$this->get_plugin_name(),
 			$this->get_version(),
@@ -349,6 +312,7 @@ class Publications {
 	 * @access		private
 	 */
 	private function define_metabox_hooks() {
+
 		$plugin_metaboxes = new Publications_Admin_Metaboxes(
 			$this->get_plugin_name(),
 			$this->get_version()
@@ -399,7 +363,7 @@ class Publications {
 	 * Retrieve the version number of the plugin.
 	 *
 	 * @since		1.0.0
-	 * @return		string					The version number of the plugin.
+	 * @return		string		The version number of the plugin.
 	 */
 	public function get_version() {
 		return $this->version;
