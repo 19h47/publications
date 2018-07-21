@@ -4,8 +4,5 @@
 		"id": "YOUR_CLIENT_KEY",
 		"secret": "YOUR_CLIENT_SECRET"
 	},
-	"redirect_uri": "YOUR_REDIRECT_URI",
-	"user": {
-		"id": "YOUR_USER_ID"
-	}
+	"redirect_uri": "YOUR_REDIRECT_URI"
 }
