@@ -257,7 +257,7 @@ class Publications_Admin_Post_Type {
 	/*
 	 * Register REST route
 	 */
-	function register_rest_route() {
+	function register_rest_route_publications() {
 		register_rest_route( 
 			'wp/v2', 
 			'/publications/', 
@@ -265,5 +265,33 @@ class Publications_Admin_Post_Type {
 				'methods'   => 'GET'
 			) 
 		);
+	}
+
+
+	/**
+	 * Register REST field
+	 */
+	function register_rest_field_publications() {
+		// register_rest_field ( 'name-of-post-type', 'name-of-field-to-return', array-of-callbacks-and-schema() )
+		register_rest_field(
+			'publication',
+			'meta',
+			array(
+				'get_callback'	=> array( $this, 'get_post_meta_publications' ),
+				'schema'		=> null,
+			)
+		);
+	}
+	
+
+	/**
+	 * Get post meta
+	 */
+	function get_post_meta_publications( $object ) {
+		//get the id of the post object array
+		$post_id = $object['id'];
+
+		//return the post meta
+		return get_post_meta( $post_id );
 	}
 }

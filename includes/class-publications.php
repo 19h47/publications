@@ -256,7 +256,13 @@ class Publications {
 		$this->loader->add_action( 
 			'rest_api_init', 
 			$plugin_post_type,
-			'register_rest_route' 
+			'register_rest_route_publications' 
+		);
+
+		$this->loader->add_action( 
+			'rest_api_init', 
+			$plugin_post_type,
+			'register_rest_field_publications' 
 		);
 	}
 
